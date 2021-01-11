@@ -1,0 +1,43 @@
+.contactItem {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  height: 40px;
+  line-height: 2rem;
+  margin-left: 1.75rem;
+  margin-bottom: 0.25rem;
+  padding-left: 40px;
+  padding-right: 10px;
+  color: rgb(53, 53, 53);
+  background: #a98ed4;
+  white-space: nowrap;
+  border-radius: 0.25rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &::before {
+    content: counter(list);
+    counter-increment: list;
+    position: absolute;
+    left: -2rem;
+    top: -0.25rem;
+    bottom: -0.25rem;
+    width: 40px;
+    line-height: 2rem;
+    border-radius: 50%;
+    border: 0.25rem solid #fff;
+    text-align: center;
+    color: rgb(53, 53, 53);
+    background: #a98ed4;
+    font-size: 20px;
+    font-weight: 800;
+  }
+}
+.nameItem {
+  margin: 0;
+  padding: 0;
+}
+.phonItem {
+  margin: 0;
+  padding: 0;
+}
