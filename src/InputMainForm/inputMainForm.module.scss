@@ -24,6 +24,17 @@
       outline: none;
     }
   }
+  p {
+    padding: 0;
+    margin: 0;
+    margin-left: 83px;
+    margin-top: -8px;
+    color: rgb(192, 0, 0);
+    &::before {
+      display: inline;
+      content: '⚠ ';
+    }
+  }
   button {
     width: max-content;
     padding: 7px;
