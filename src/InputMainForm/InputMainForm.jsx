@@ -8,11 +8,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function InputMainForm(props) {
         const schema = yup.object().shape({
-        name: yup.string().required().min(3),
-        number:yup.number().required().min(5),
+        name: yup.string().required(),
+        number:yup.number().required(),
     })
 
-    const { register,handleSubmit,reset, errors } = useForm({resolver:yupResolver(schema)});
+    const { register, handleSubmit, errors} = useForm({resolver:yupResolver(schema)});
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
     const [id, setId] = useState(uuidv4());
@@ -25,18 +25,17 @@ export default function InputMainForm(props) {
             default:
                 break;
         }
-        console.log(errors);
     }
-    const hendleOnSubmite = e => {
+    const hendleOnSubmite = () => {
         // e.preventDefault();
        props.onSubHand({ name, number, id });
-        // reset();
+        reset();
     }
-    // const reset = () => {
-    //     setName('');
-    //     setNumber('');
-    //     setId(uuidv4());
-    // }
+    const reset = () => {
+        setName('');
+        setNumber('');
+        setId(uuidv4());
+    }
      return (
             <div>
             <form onSubmit={handleSubmit(hendleOnSubmite)} className={styles.mainForm}>
