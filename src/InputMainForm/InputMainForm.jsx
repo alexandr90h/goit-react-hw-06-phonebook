@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { connect } from "react-redux";
+import contactsAction from "../redux/action.js";
 
 export default function InputMainForm(props) {
         const schema = yup.object().shape({
@@ -52,6 +54,11 @@ export default function InputMainForm(props) {
             </div>
         );
 };
+const mapDispatchToProps = dispatch => ({
+    onSubmit:value=>dispatch(contactsAction.addContacts(value))
+})
+// export default connect(null,mapDispatchToProps)(InputMainForm);
+
 InputMainForm.propTypes = {
     onSubHand:PropTypes.func,
 }
