@@ -18,10 +18,6 @@ export default function App() {
   const inpFindChangHandler = data => {
     setFilterName(prev => prev = data);
   }
-  const btnDelId = data => {
-    setContacts(prev => prev.filter(obj => obj.id !== data))
-  }
-
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts,filterName]);
@@ -39,12 +35,12 @@ export default function App() {
             ?
             <ContactsList
               stateData={contacts}
-              onBtnDelId={btnDelId} />
+            />
             :
             <FilterContactsList
               stateData={contacts}
               changeFilter={filterName}
-              onBtnDelId={btnDelId} />
+            />
           }
         </div>
     </div>

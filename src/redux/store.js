@@ -3,11 +3,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import types from './types';
 
 
-const items = (state = [], {type,payload}) => {
+const items = (state = [], {type, payload}) => {
 switch (type) {
     case types.ADD:
         return [...state, payload];
-
+    case types.DELETE:
+        return state.filter(({ id }) => id !== payload);
     default:
         return state;
 }

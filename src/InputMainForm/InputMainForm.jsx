@@ -1,14 +1,12 @@
-import PropTypes from 'prop-types';
 import styles from './inputMainForm.module.scss';
-import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import contactsAction from "../redux/action.js";
 
-function InputMainForm(props) {
+export default function InputMainForm(props) {
         const schema = yup.object().shape({
         name: yup.string().required(),
         number:yup.number().required(),
@@ -17,7 +15,8 @@ function InputMainForm(props) {
     const { register, handleSubmit, errors} = useForm({resolver:yupResolver(schema)});
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
-    const [id, setId] = useState(uuidv4());
+    const dispatch = useDispatch();
+
     const hendleInputChanga = e => {
         switch (e.target.name) {
             case 'name': setName(e.target.value)
@@ -30,13 +29,12 @@ function InputMainForm(props) {
     }
     const hendleOnSubmite = () => {
         // e.preventDefault();
-       props.onSubHand({ name, number, id });
+        dispatch(contactsAction.addContacts(name,number));
         reset();
     }
     const reset = () => {
         setName('');
         setNumber('');
-        setId(uuidv4());
     }
      return (
             <div>
@@ -55,12 +53,5 @@ function InputMainForm(props) {
     );
 
 };
-const mapDispatchToProps = dispatch => ({
-        onSubHand: text => dispatch(contactsAction.addContacts(text))
-    });
 
-export default connect(null,mapDispatchToProps)(InputMainForm);
-
-InputMainForm.propTypes = {
-    onSubHand:PropTypes.func,
-}
+// export default connect(null,mapDispatchToProps)(InputMainForm);
