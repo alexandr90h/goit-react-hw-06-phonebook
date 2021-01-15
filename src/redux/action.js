@@ -13,5 +13,9 @@ const delContacts = id => ({
     type: types.DELETE,
     payload: id,
 });
-const contactsAction = { addContacts, delContacts };
+const filterChange = text => ({
+    type: types.CHANGE_FILTER,
+    payload:text,
+})
+const contactsAction = { addContacts, delContacts, filterChange };
 export default contactsAction;

@@ -3,46 +3,48 @@ import InputMainForm from './InputMainForm/InputMainForm';
 import ContactsList from './ContactsList/ContactsList.jsx';
 import InputFind from './InputFind/InputFind';
 import FilterContactsList from './InputFind/FilterContactsList.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-export default function App() {
-    const [contacts, setContacts] = useState(()=>JSON.parse(localStorage.getItem('contacts'))??[]);
-    const [filterName, setFilterName] = useState('');
+function App({stateData,filterName}) {
+    // const [contacts, setContacts] = useState(()=>JSON.parse(localStorage.getItem('contacts'))??[]);
+    // const [filterName, setFilterName] = useState('');
 
-  const formSubmitHandler = data => {
-    if (contacts.find(obj => obj.name.toLowerCase() === data.name.toLowerCase())===undefined) {
-      setContacts(prev => prev.concat(data))
-    }
-    else alert(`${data.name} is alreadyin contacts.`);
-  }
-  const inpFindChangHandler = data => {
-    setFilterName(prev => prev = data);
-  }
+  // const formSubmitHandler = data => {
+  //   if (contacts.find(obj => obj.name.toLowerCase() === data.name.toLowerCase())===undefined) {
+  //     setContacts(prev => prev.concat(data))
+  //   }
+  //   else alert(`${data.name} is alreadyin contacts.`);
+  // }
+  // const inpFindChangHandler = data => {
+  //   setFilterName(prev => prev = data);
+  // }
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts,filterName]);
+    localStorage.setItem('contacts', JSON.stringify(stateData));
+  }, [stateData,filterName]);
   
     return (
       <div className={styles.mainContainer}>
         <h1>Phonebook</h1>
         <div>
-          <InputMainForm onSubHand={formSubmitHandler} />
+          <InputMainForm />
         </div>
         <div>
           <h2>Contacts</h2>
-                  <InputFind onChangeFind={inpFindChangHandler} />
+                  <InputFind />
           {filterName === ''
             ?
-            <ContactsList
-              stateData={contacts}
-            />
+            <ContactsList/>
             :
-            <FilterContactsList
-              stateData={contacts}
-              changeFilter={filterName}
-            />
+            <FilterContactsList/>
           }
         </div>
     </div>
     )
 };
+const mapStateToProps = state => ({
+  stateData: state.items,
+  filterName: state.filter,
+  
+});
+export default connect(mapStateToProps, null)(App);

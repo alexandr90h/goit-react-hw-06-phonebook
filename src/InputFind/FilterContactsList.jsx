@@ -1,10 +1,12 @@
 import ContactsListItem from '../ContactsList/ContactsItem';
 import styles from '../ContactsList/conractsList.module.scss';
 import PropTypes from 'prop-types';
+import contactsAction from "../redux/action.js";
+import { connect } from "react-redux";
 
-export default function FilterContactsList({ stateData, changeFilter, onBtnDelId }) {
+function FilterContactsList({ stateData, filterName, onBtnDelId }) {
     const filterArr = stateData.filter(obj => {
-        return (obj.name.toLowerCase().includes(changeFilter.toLowerCase()))
+        return (obj.name.toLowerCase().includes(filterName.toLowerCase()))
     }); 
     return (
         <ol className={styles.contactList}>
@@ -19,6 +21,17 @@ export default function FilterContactsList({ stateData, changeFilter, onBtnDelId
         </ol>
     )
 }
+
+const mapStateToProps = state => ({
+    stateData: state.items,
+    filterName: state.filter,
+})
+const mapDispatchToProps = dispatch => ({
+    onBtnDelId:(id)=>dispatch(contactsAction.delContacts(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterContactsList);
+
 FilterContactsList.propTypes = {
     stateData: PropTypes.array,
     changeFilter: PropTypes.string,

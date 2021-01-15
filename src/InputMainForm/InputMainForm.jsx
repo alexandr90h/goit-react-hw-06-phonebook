@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from "react-redux";
 import contactsAction from "../redux/action.js";
 
-export default function InputMainForm(props) {
+export default function InputMainForm() {
         const schema = yup.object().shape({
         name: yup.string().required(),
         number:yup.number().required(),
@@ -27,7 +27,7 @@ export default function InputMainForm(props) {
                 break;
         }
     }
-    const hendleOnSubmite = () => {
+    const hendleOnSubmite = e => {
         // e.preventDefault();
         dispatch(contactsAction.addContacts(name,number));
         reset();
@@ -53,5 +53,3 @@ export default function InputMainForm(props) {
     );
 
 };
-
-// export default connect(null,mapDispatchToProps)(InputMainForm);
