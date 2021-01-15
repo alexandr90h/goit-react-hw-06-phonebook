@@ -22,9 +22,14 @@
     }
   }
   button {
+    padding-top: 3px;
     background: none;
     border: none;
     color: red;
+    &:focus {
+      outline: 0;
+      outline-offset: 0;
+    }
     svg {
       width: 15px;
       height: 15px;

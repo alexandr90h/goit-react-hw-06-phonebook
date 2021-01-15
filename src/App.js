@@ -4,22 +4,12 @@ import ContactsList from './ContactsList/ContactsList.jsx';
 import InputFind from './InputFind/InputFind';
 import FilterContactsList from './InputFind/FilterContactsList.jsx';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function App({stateData,filterName}) {
-    // const [contacts, setContacts] = useState(()=>JSON.parse(localStorage.getItem('contacts'))??[]);
-    // const [filterName, setFilterName] = useState('');
-
-  // const formSubmitHandler = data => {
-  //   if (contacts.find(obj => obj.name.toLowerCase() === data.name.toLowerCase())===undefined) {
-  //     setContacts(prev => prev.concat(data))
-  //   }
-  //   else alert(`${data.name} is alreadyin contacts.`);
-  // }
-  // const inpFindChangHandler = data => {
-  //   setFilterName(prev => prev = data);
-  // }
-  useEffect(() => {
+export default function App() {
+  const stateData = useSelector(state => state.items);
+  const filterName = useSelector(state => state.filter);
+ useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(stateData));
   }, [stateData,filterName]);
   
@@ -42,9 +32,3 @@ function App({stateData,filterName}) {
     </div>
     )
 };
-const mapStateToProps = state => ({
-  stateData: state.items,
-  filterName: state.filter,
-  
-});
-export default connect(mapStateToProps, null)(App);

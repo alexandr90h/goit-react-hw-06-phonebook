@@ -1,10 +1,12 @@
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ContactsListItem from './ContactsItem';
 import styles from './conractsList.module.scss'
 import contactsAction from "../redux/action.js";
 
 
-function ContactsList({ stateData, onBtnDelId }) {
+export default function ContactsList() {
+    const stateData = useSelector(state => state.items);
+    const dispatch=useDispatch()
     return (
         <ol className={styles.contactList}>
             {stateData.map(obj => {
@@ -12,16 +14,9 @@ function ContactsList({ stateData, onBtnDelId }) {
                     id={obj.id}
                     name={obj.name}
                     number={obj.number}
-                    onBtnDelId={onBtnDelId}
+                    onBtnDelId={()=>dispatch(contactsAction.delContacts(obj.id))}
                 />)
             })}
         </ol>
     )
 }
-const mapStateToProps = state => ({
-stateData:state.items,
-});
-const mapDispatchToProps = dispatch => ({
-    onBtnDelId:(id)=>dispatch(contactsAction.delContacts(id)),
-});
-export default connect(mapStateToProps,mapDispatchToProps)(ContactsList);
