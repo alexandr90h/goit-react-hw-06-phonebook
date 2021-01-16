@@ -2,12 +2,15 @@ import ContactsListItem from '../ContactsList/ContactsItem';
 import styles from '../ContactsList/conractsList.module.scss';
 import PropTypes from 'prop-types';
 import contactsAction from "../redux/action.js";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-function FilterContactsList({ stateData, filterName, onBtnDelId }) {
+export default function FilterContactsList() {
+    const stateData = useSelector(state => state.items);
+    const filterName = useSelector(state => state.filter);
+    const dispatch = useDispatch();
     const filterArr = stateData.filter(obj => {
         return (obj.name.toLowerCase().includes(filterName.toLowerCase()))
-    }); 
+    });
     return (
         <ol className={styles.contactList}>
             {filterArr.map(obj => {
@@ -15,22 +18,12 @@ function FilterContactsList({ stateData, filterName, onBtnDelId }) {
                     id={obj.id}
                     name={obj.name}
                     number={obj.number}
-                    onBtnDelId={onBtnDelId}
+                    onBtnDelId={()=>dispatch(contactsAction.delContacts(obj.id))}
                 />)
             })}
         </ol>
     )
 }
-
-const mapStateToProps = state => ({
-    stateData: state.items,
-    filterName: state.filter,
-})
-const mapDispatchToProps = dispatch => ({
-    onBtnDelId:(id)=>dispatch(contactsAction.delContacts(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterContactsList);
 
 FilterContactsList.propTypes = {
     stateData: PropTypes.array,

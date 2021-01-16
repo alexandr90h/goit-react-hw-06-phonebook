@@ -6,7 +6,7 @@ import contactsAction from "../redux/action.js";
 
 export default function ContactsList() {
     const stateData = useSelector(state => state.items);
-    const dispatch=useDispatch()
+    const dispatch = useDispatch();
     return (
         <ol className={styles.contactList}>
             {stateData.map(obj => {

@@ -2,7 +2,6 @@ import styles from './inputFind.module.scss';
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { FiX } from "react-icons/fi";
-
 import contactsAction from "../redux/action.js";
 
 

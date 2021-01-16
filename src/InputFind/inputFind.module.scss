@@ -22,7 +22,9 @@
     }
   }
   button {
-    padding-top: 3px;
+    position: absolute;
+    left: 155px;
+    padding-top: 4px;
     background: none;
     border: none;
     color: red;
@@ -37,8 +39,9 @@
   }
 }
 .formBox {
+  position: relative;
   display: flex;
   justify-content: left;
-  align-content: center;
+  align-items: center;
   margin-top: 10px;
 }
